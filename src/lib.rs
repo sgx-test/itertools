@@ -1,6 +1,8 @@
 #![warn(missing_docs)]
 #![crate_name="itertools"]
 #![cfg_attr(not(feature = "use_std"), no_std)]
+#![cfg_attr(all(feature = "mesalock_sgx", not(target_env = "sgx")), no_std)] 
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
 
 //! Extra iterator adaptors, functions and macros.
 //!
@@ -3537,3 +3539,4 @@ impl<T> FoldWhile<T> {
         }
     }
 }
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))] #[macro_use] extern crate sgx_tstd as std;
